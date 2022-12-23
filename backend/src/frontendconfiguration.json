@@ -1,0 +1,4 @@
+{
+    "currentScreenUrl": "http://localhost:3000/screenshot",
+    "statusUrl": "http://localhost:3000/currentstatus"
+}
