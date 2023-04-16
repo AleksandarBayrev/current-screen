@@ -1,16 +1,12 @@
 import koa from "koa";
 import Router from "koa-router";
 import { AppContext, AppServices, AppState } from "../types";
-import { configurationRouteGet, currentStatusRouteGet, indexRouteDelete, indexRouteGet, indexRoutePatch, indexRoutePost, indexRoutePut, screenshotRouteGet } from "./routes";
+import { configurationRouteGet, currentStatusRouteGet, indexRouteGet, screenshotRouteGet } from "./routes";
 
 export const mapRoutes = (app: koa<AppState, AppContext>, services: AppServices) => {
     const router = new Router();
     indexRouteGet(router);
-    indexRouteDelete(router);
-    indexRoutePatch(router);
-    indexRoutePost(router);
-    indexRoutePut(router);
-    screenshotRouteGet(router);
+    screenshotRouteGet(router, services);
     currentStatusRouteGet(router);
     configurationRouteGet(router);
     app.use(router.routes());

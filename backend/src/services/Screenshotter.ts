@@ -1,14 +1,19 @@
 import screenshot from 'screenshot-desktop';
 import { ILogger, IWorker } from '../types';
+import { Storage } from './Storage';
 
 export class Screenshotter implements IWorker {
     private interval: NodeJS.Timer | null;
     private readonly logger: ILogger;
+    private readonly storage: Storage;
 
     public readonly name: string = 'Screenshotter';
 
-    constructor(logger: ILogger) {
+    constructor(
+        logger: ILogger,
+        storage: Storage) {
         this.logger = logger;
+        this.storage = storage;
         this.interval = null;
     }
 
@@ -18,7 +23,7 @@ export class Screenshotter implements IWorker {
             return;
         }
         this.interval = setInterval(async () => {
-            await screenshot({ format: 'jpg', filename: './image.jpg' });
+            this.storage.setScreenData(await screenshot({ format: 'jpg' }));
         }, 1000);
     }
     
